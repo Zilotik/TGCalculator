@@ -1,8 +1,8 @@
 import telebot
 import math
 
-TOKEN = '6502691676:AAFOL6TitnKHMwrFXOr3cWrPrNj4VOloJng'
-bot = telebot.TeleBot(TOKEN)                                                                     # тут кароч к телеграмуу подсасывается
+TOKEN = '6502691676:AAFOL6TitnKHMwrFrPrNj4VOloJng'
+bot = telebot.TeleBot(TOKEN)                                                                     
 
 value = ''
 old_value = ''
@@ -21,7 +21,7 @@ keyboard.row(telebot.types.InlineKeyboardButton('7', callback_data='7'),
 
 keyboard.row(telebot.types.InlineKeyboardButton('4', callback_data='4'),
              telebot.types.InlineKeyboardButton('5', callback_data='5'),
-             telebot.types.InlineKeyboardButton('6', callback_data='6'),                                                                     #делаем кнопки под сообщением
+             telebot.types.InlineKeyboardButton('6', callback_data='6'),                                                                    
              telebot.types.InlineKeyboardButton('-', callback_data='-'))
 
 keyboard.row(telebot.types.InlineKeyboardButton('1', callback_data='1'),
@@ -35,16 +35,16 @@ keyboard.row(telebot.types.InlineKeyboardButton(' ', callback_data='no'),
              telebot.types.InlineKeyboardButton('=', callback_data='='))
 
 
-@bot.message_handler(commands=['start'])                                                                        # приветсвтенное сообщение
+@bot.message_handler(commands=['start'])                                                                      
 def say_hello(message):
-    bot.send_message(message.from_user.id, 'Привет, я очень неудобный и кривой калькулятор. Но если хочешь мной пользоваться я постараюс сделать все возможное. Набери /calc и вылезет калькулятор!')   
+    bot.send_message(message.from_user.id, 'Привет, я очень неудобный и кривой калькулятор. Но если хочешь мной пользоваться я постараюсь сделать все возможное. Набери /calc и вылезет калькулятор!')   
 
 
 @bot.message_handler(commands=['calc'])
 def getmessage(message):
     global value
     if value == '':
-        bot.send_message(message.from_user.id, '0', reply_markup=keyboard)                                                       # подрубает калькулятор 
+        bot.send_message(message.from_user.id, '0', reply_markup=keyboard)                                                      
     else:
         bot.send_message(message.from_user.id, value, reply_markup=keyboard)
 
@@ -61,7 +61,7 @@ def do_callback(query):
     elif data == '<=':
         if value != '':
             value = value[:-1]
-    elif data == '=':                                                      # постоянно обновляет строку калькулятора после нажатия кнопок
+    elif data == '=':                                                      
         try:
             value = str(eval(value))
         except:
@@ -77,4 +77,4 @@ def do_callback(query):
     if value == 'Ты дурак? Так делать нельзя!':
         value = ''     
 
-bot.polling()                                                       # заставляет этого металлического уебка работать 24/7
+bot.polling(3)                                                       
